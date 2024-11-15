@@ -40,5 +40,5 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-received_signal.wav
-transmitted_signal.wav
+noisy_output.wav
+output.wav

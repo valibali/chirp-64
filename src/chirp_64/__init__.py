@@ -1,5 +1,9 @@
-"""mypackage package.
+"""chirp_64 package.
 
-Upgraded version of legacy DocGen for OneParking
+Chirp 64 amateur radio communication mode/protocol
 
 """
+
+import importlib.metadata
+
+__version__ = importlib.metadata.version("chirp_64")
