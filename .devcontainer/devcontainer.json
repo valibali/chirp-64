@@ -1,0 +1,85 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.245.0/containers/python-3
+{
+  "name": "python-package-poetry-boilerplate",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "..",
+    "args": {
+      // Update 'VARIANT' to pick a Python version: 3, 3.12, 3.11, 3.10, 3.9, 3.8, 3.7, 3.6
+      // Append -bullseye or -buster to pin to an OS version.
+      // Use -bullseye variants on local on arm64/Apple Silicon.
+      "VARIANT": "3.12-bookworm",
+      // Options
+      // Additional Python tools
+      "POETRY_VERSION": "1.8.3",
+      // Optional local env
+      //"MY_BUILD_ARG": "VALUE",
+      // Optionally forwarding host user
+      //"HOST_USER": "abc2de"
+    }
+  },
+  // Configure tool-specific properties.
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Set *default* container specific settings.json values on container create.
+      "settings": {
+        "editor.formatOnSave": true,
+        "[python]": {
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+          }
+        },
+        "isort.path": [
+          ".venv/bin/isort"
+        ],
+        "black-formatter.path": [
+          ".venv/bin/black"
+        ],
+        "mypy-type-checker.args": [
+          "--config-file",
+          "${workspaceFolder}/pyproject.toml"
+        ],
+        "mypy-type-checker.path": [
+          ".venv/bin/mypy"
+        ],
+        "mypy-type-checker.reportingScope": "workspace",
+        "flake8.path": [
+          ".venv/bin/flake8"
+        ],
+        "python.testing.unittestEnabled": false,
+        "python.testing.pytestEnabled": true,
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+        "python.testing.cwd": "${workspaceFolder}",
+        "python.testing.pytestArgs": [
+          "--no-cov"
+        ]
+      },
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "ms-python.python",
+        "ms-python.isort",
+        "ms-python.flake8",
+        "ms-python.black-formatter",
+        "ms-python.mypy-type-checker"
+      ]
+    }
+  },
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "bash ./.devcontainer/post-install.sh",
+  "remoteUser": "vscode",
+  "containerEnv": {
+    // Optional local env to forward into the container
+    //"MY_LOCAL_ENV": "${localEnv:MY_LOCAL_ENV}"
+  },
+  "mounts": [
+    // Re-use local SSH keys (useful if you use SSH keys for Git repo access or other SSH work)
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+    // Re-use local Git configuration
+    "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached"
+  ]
+}
