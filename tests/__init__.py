@@ -1,5 +1,5 @@
 """mypackage package.
 
-Upgraded version of legacy DocGen for OneParking
+Cross-correlation based digital mode reciever/simulator for amateur radios
 
 """

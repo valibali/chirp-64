@@ -2012,6 +2012,17 @@ files = [
 ]
 
 [[package]]
+name = "types-pyaudio"
+version = "0.2.16.20240516"
+description = "Typing stubs for pyaudio"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "types-pyaudio-0.2.16.20240516.tar.gz", hash = "sha256:f1c419ccc78b00d26c6c1ae4fcb17f7e4f08af2c2b9b73b12fcbc4a4ffa3a2c7"},
+    {file = "types_pyaudio-0.2.16.20240516-py3-none-any.whl", hash = "sha256:40063f13ae15a422cbd4a2a783653eb3e1091bdd23fc7ab8ca3abc21ad0d13f8"},
+]
+
+[[package]]
 name = "typing-extensions"
 version = "4.12.2"
 description = "Backported and Experimental Type Hints for Python 3.8+"
@@ -2104,4 +2115,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10, <4.0"
-content-hash = "e63c3c1c7ef42e89786a26cc09d23e038482972933d40d1603380a25a1da10e8"
+content-hash = "a53348498636996b62d1de09083e1843716a3a363e78a756571be08209f87036"

@@ -1,12 +1,13 @@
 [tool.poetry]
 name = "chirp-64"
-version = "0.0.1"
-description = "Upgraded version of legacy DocGen for OneParking"
+version = "1.0.0"
+description = "Cross-correlation based digital mode reciever/simulator for amateur radios"
 authors = [
-
+    "Valkony Balazs"
 ]
 license = "BIOS"
 readme = "README.md"
+repository = "https://github.com/valibali/chirp-64"
 
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -53,6 +54,7 @@ pytest-cov = "*"
 pyupgrade = "*"
 pytest-mock = "*"
 regex = "^2023.12.25"
+types-pyaudio = "^0.2.16.20240516"
 
 [tool.poetry.scripts]
 chirp-64 = "chirp_64.__main__:main"

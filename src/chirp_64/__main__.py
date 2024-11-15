@@ -2,6 +2,8 @@
 import argparse
 import logging
 import signal
+import sys
+import time
 from typing import Optional
 
 import numpy as np
@@ -25,7 +27,7 @@ def setup_logging(verbosity: int) -> bool:
     3 (-vvv) = DEBUG and above
     """
     if verbosity == 0:
-        level = logging.WARNING
+        level = logging.ERROR
     elif verbosity == 1:
         level = logging.INFO
     elif verbosity == 2:
@@ -140,7 +142,7 @@ def run_capture_mode(config: Config):
     # Initialize components
     receiver = Receiver(config)
     continuous_receiver = ContinuousReceiver(config, receiver)
-    audio_capture = AudioCapture(sample_rate=config.Fs)
+    audio_capture = AudioCapture(sample_rate=config.Fs )
 
     # Setup signal handler for clean exit
     def signal_handler(sig, frame):

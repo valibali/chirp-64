@@ -154,7 +154,7 @@ class Receiver:
         frame_start = sfd_index + len(self._bits_to_signal(sfd))
         payload_size_bits = self.extract_bits(received_signal, frame_start, 16)
         if len(payload_size_bits) < 16:
-            logging.warning("Incomplete payload size field")
+            logging.info("Incomplete payload size field")
             return None
 
         payload_size = int("".join(payload_size_bits.astype(str)), 2)
@@ -165,7 +165,7 @@ class Receiver:
             received_signal, frame_start + 16 * self.N, total_message_bits
         )
         if len(message_bits) < total_message_bits:
-            logging.warning("Incomplete payload/CRC received")
+            logging.info("Incomplete payload/CRC received")
             return None
 
         payload_bits_received = message_bits[:payload_size]

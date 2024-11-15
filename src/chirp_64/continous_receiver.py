@@ -14,7 +14,7 @@ class ContinuousReceiver:
     def __init__(self, config: Config, receiver: Receiver):
         self.config = config
         self.receiver = receiver
-        self.buffer_size = int(config.Fs * 0.5)  # 0.5 second buffer
+        self.buffer_size = int(config.Fs * 5)  # 5 second buffer
         self.signal_buffer = np.zeros(self.buffer_size, dtype=np.float32)
         self.minimum_frame_samples = int(config.Fs * 0.1)  # Minimum samples for a valid frame
 
