@@ -1,6 +1,8 @@
 # type: ignore
 from dataclasses import dataclass
 
+import numpy as np
+
 
 @dataclass
 class Config:
@@ -14,7 +16,9 @@ class Config:
     A: float = 1.0  # Amplitude of chirps
     noise_power: float = 1  # Noise power
     preamble: str = "10101010"  # 8 bits
+    preamble_bits = np.array([int(bit) for bit in preamble], dtype=int)
     sfd: str = "11110000"  # 8 bits
+    sfd_bits = np.array([int(bit) for bit in sfd], dtype=int)
     payload_length: int = 64  # Number of payload bits
     max_bits: int = 500  # Max bits to annotate in plots
 

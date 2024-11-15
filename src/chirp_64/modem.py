@@ -17,8 +17,6 @@ class Transmitter:
         self.t = np.linspace(0, self.T, self.N, endpoint=False)
 
         # Convert bits to arrays
-        self.preamble_bits = np.array([int(bit) for bit in config.preamble], dtype=int)
-        self.sfd_bits = np.array([int(bit) for bit in config.sfd], dtype=int)
         self.payload_bits = np.random.randint(0, 2, config.payload_length, dtype=int)
         self.payload_size_field_bits = np.array(
             [int(x) for x in format(config.payload_length, "016b")], dtype=int
@@ -26,8 +24,8 @@ class Transmitter:
         self.crc_bits = SignalProcessor.crc32(self.payload_bits)
         self.data_bits = np.concatenate(
             [
-                self.preamble_bits,
-                self.sfd_bits,
+                self.config.preamble_bits,
+                self.config.sfd_bits,
                 self.payload_size_field_bits,
                 self.payload_bits,
                 self.crc_bits,
@@ -39,8 +37,10 @@ class Transmitter:
         logging.info(f"Payload (Hex): {SignalProcessor.bits_to_hex(self.payload_bits)}")
         logging.info(f"CRC (Hex): {SignalProcessor.bits_to_hex(self.crc_bits)}")
         if logging.getLogger().isEnabledFor(logging.DEBUG):
-            logging.debug(f"Preamble (Hex): {SignalProcessor.bits_to_hex(self.preamble_bits)}")
-            logging.debug(f"SFD (Hex): {SignalProcessor.bits_to_hex(self.sfd_bits)}")
+            logging.debug(
+                f"Preamble (Hex): {SignalProcessor.bits_to_hex(self.config.preamble_bits)}"
+            )
+            logging.debug(f"SFD (Hex): {SignalProcessor.bits_to_hex(self.config.sfd_bits)}")
             logging.debug(
                 f"Payload Size Field (Hex): {SignalProcessor.bits_to_hex(self.payload_size_field_bits)}"
             )
@@ -196,3 +196,23 @@ class Channel:
     def transmit(self, signal: np.ndarray) -> np.ndarray:
         noise = np.sqrt(self.config.noise_power) * np.random.randn(len(signal))
         return signal + noise
+
+
+class TextTransmitter(Transmitter):
+    """Extended Transmitter class that supports custom text payloads."""
+
+    def __init__(self, config: Config, custom_payload: Optional[np.ndarray] = None):
+        super().__init__(config)
+        if custom_payload is not None:
+            self.payload_bits = custom_payload
+            self.crc_bits = SignalProcessor.crc32(self.payload_bits)
+            # Rebuild data_bits with new payload
+            self.data_bits = np.concatenate(
+                [
+                    self.config.preamble_bits,
+                    self.config.sfd_bits,
+                    self.payload_size_field_bits,
+                    self.payload_bits,
+                    self.crc_bits,
+                ]
+            )
