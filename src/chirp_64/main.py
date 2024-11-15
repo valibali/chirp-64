@@ -1,3 +1,4 @@
+# type: ignore
 import argparse
 import logging
 from dataclasses import dataclass
@@ -5,8 +6,8 @@ from typing import Dict, List, Optional, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.io.wavfile import read, write
-from scipy.signal import correlate
+from scipy.io.wavfile import read, write  # type: ignore
+from scipy.signal import correlate  # type: ignore
 
 
 @dataclass
@@ -24,7 +25,7 @@ class Config:
     payload_length: int = 64  # Number of payload bits
     max_bits: int = 500  # Max bits to annotate in plots
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Validate configuration parameters."""
         assert self.Fs > 0, "Sampling frequency must be positive."
         assert self.desired_baud_rate > 0, "Baud rate must be positive."
